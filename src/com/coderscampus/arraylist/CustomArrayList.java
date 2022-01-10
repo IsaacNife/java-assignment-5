@@ -7,31 +7,23 @@ public class CustomArrayList<T> implements CustomList<T> {
 	private int arraySize = 0;
 	Object[] items = new Object[10];
 	
-	public CustomArrayList(int initCapacity) {
-		if(initCapacity > 0) {
-			this.items = new Object[initCapacity];
-		} else if (initCapacity == 10) {
-			this.items = new Object[10];
-		} else {
-			throw new IllegalArgumentException("Illegal Capacity: " + initCapacity);
-		}
-	}
 
 	@Override
 	public boolean add(T item) {	
-		ensureCapacity();
+		if (arraySize == items.length) {
+            ensureCapacity();
+        }
 		items[arraySize++] = item;
 		
 		return true;
 	}
 	
 	private void ensureCapacity() {
-		if(items.length <= arraySize) {
-		int oldCapacity = items.length;
-		int newCapacity = (oldCapacity * 3) /2 + 1;
-		items = Arrays.copyOf(items, newCapacity);
-		}
-	}
+        int newSize =items.length * 2;
+        items = Arrays.copyOf(items, newSize);
+    }
+		
+	
 
 	@Override
 	public int getSize() {
@@ -49,6 +41,7 @@ public class CustomArrayList<T> implements CustomList<T> {
 		
 		
 	}
+	
 	
 	
 }
